@@ -12,6 +12,7 @@ internal class Program
         bool vitoria = false;
         int jogadas = 0;
 
+        //Inicio do jogo
         while(jogadas < 9 && vitoria != true)
         {
             JogadaJogador1(tab, pecaX);
