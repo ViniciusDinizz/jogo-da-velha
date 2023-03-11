@@ -13,7 +13,7 @@ internal class Program
         int jogadas = 0;
 
         //Inicio do jogo
-        while(jogadas < 9 && vitoria != true)
+        while (jogadas < 9 && vitoria != true)
         {
             JogadaJogador1(tab, pecaX);
             Imprimir(tab);
@@ -21,7 +21,7 @@ internal class Program
             peca = pecaX;
             if (jogadas >= 4)
             {
-                vitoria = TesteJogada(tab, peca);
+                vitoria = TestarJogada(tab, peca);
                 if (vitoria == true)
                 {
                     Console.WriteLine("Parabéns pela Vitória Jogador 1.");
@@ -31,7 +31,7 @@ internal class Program
             Console.Write("PressEnter...");
             Console.ReadLine();
             Console.Clear();
-            if(jogadas == 9)
+            if (jogadas == 9)
             {
                 break;
             }
@@ -41,7 +41,7 @@ internal class Program
             peca = pecaO;
             if (jogadas >= 4)
             {
-                vitoria = TesteJogada(tab, peca);
+                vitoria = TestarJogada(tab, peca);
                 if (vitoria == true)
                 {
                     Console.WriteLine("Parabéns pela Vitória Jogador 2.");
@@ -51,10 +51,11 @@ internal class Program
             Console.Write("PressEnter...");
             Console.ReadLine();
             Console.Clear();
-        } 
+        }
         if (vitoria == false)
         {
-            Console.WriteLine("Deu Velha!");
+            Imprimir(tab);
+            Console.WriteLine("Deu Velha! Tente Novamente.");
         }
 
         //Verifica posicionamento livre, coordenada, e realiza a jogada jogador 1
@@ -74,11 +75,11 @@ internal class Program
                 coordenada = Console.ReadLine();
                 Console.Clear();
             }
-            while (!VerificacaoTab(tab, coordenada))
+            while (!VerificacarTab(tab, coordenada))
             {
                 Console.Clear();
                 Imprimir(tab);
-                Console.WriteLine("Posição ocupada, escolha outra: ");
+                Console.WriteLine("Posição ocupada, escolha outra Jogador 1: ");
                 coordenada = Console.ReadLine();
                 Console.Clear();
             }
@@ -97,17 +98,17 @@ internal class Program
             Console.Clear();
             while (!VerificarPosicao(coordenada))
             {
-                Console.Clear() ;
+                Console.Clear();
                 Imprimir(tab);
                 Console.Write("Digite uma posição válida Jogador 2: ");
                 coordenada = Console.ReadLine();
                 Console.Clear();
             }
-            while (!VerificacaoTab(tab, coordenada))
+            while (!VerificacarTab(tab, coordenada))
             {
                 Console.Clear();
                 Imprimir(tab);
-                Console.WriteLine("Posição ocupada, escolha outra: ");
+                Console.WriteLine("Posição ocupada, escolha outra Jogador 2: ");
                 coordenada = Console.ReadLine();
                 Console.Clear();
             }
@@ -196,7 +197,7 @@ internal class Program
         }
 
         //Verifica se a posição está sendo usada
-        bool VerificacaoTab(string[,] tab, string coordenada)
+        bool VerificacarTab(string[,] tab, string coordenada)
         {
             bool info = true;
             coordenada.ToLower();
@@ -305,14 +306,15 @@ internal class Program
         {
             Console.WriteLine("    A     B      C");
             Console.WriteLine($"1   {tab[0, 0]} |   {tab[0, 1]}   | {tab[0, 2]} ");
-            Console.WriteLine("  ____|_______|______");
+            Console.WriteLine("  ____|_______|_____");
             Console.WriteLine($"2   {tab[1, 0]} |   {tab[1, 1]}   | {tab[1, 2]} ");
-            Console.WriteLine("  ____|_______|______");
+            Console.WriteLine("  ____|_______|_____");
             Console.WriteLine($"3   {tab[2, 0]} |   {tab[2, 1]}   | {tab[2, 2]} ");
+            Console.WriteLine("      |       |");
         }
 
         //Testando se houve vitória
-        bool TesteJogada(string[,] tab, string peca)
+        bool TestarJogada(string[,] tab, string peca)
         {
             //CHAMADA DE FUNÇÕES VERIFICAÇÃO
             if (LineVerify(tab, peca))
@@ -323,7 +325,7 @@ internal class Program
             {
                 return true;
             }
-            if(VerificandoDiagonal(tab, peca))
+            if (VerificandoDiagonal(tab, peca))
             {
                 return true;
             }
@@ -415,30 +417,27 @@ internal class Program
                     {
                         bateu++;
                     }
-                }
-                if (bateu == 3)
-                {
-                    return true;
+                    if (bateu == 3)
+                    {
+                        return true;
+                    }
                 }
                 bateu = 0;
-                for (int posicaoin = 2; posicaoin == 0; posicaoin--)
+                for (int posicaocolun = 2; posicaocolun >= 0; posicaocolun--)
                 {
-                    int indice = 2;
-                    if (tab[posicaoin, indice - indice] == peca)
+                    int indice = tab.GetLength(1)-1;
+                    if (tab[indice - posicaocolun, posicaocolun] == peca)
                     {
                         bateu++;
                     }
+                    if (bateu == 3)
+                    {
+                        return true;
+                    }
                 }
-                if (bateu == 3)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return false;
             }
         }
-
     }
+
 }
