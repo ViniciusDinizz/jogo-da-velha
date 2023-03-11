@@ -3,4 +3,4 @@
 
 -Jogo da velha para dois jogadores.
 
--O primeiro á completar uma sequência com 3 peças iguais na vertical, hrizontal ou diagonal, ganha o jogo.
+-O primeiro Ã¡ completar uma sequÃªncia com 3 peÃ§as iguais na vertical, horizontal ou diagonal, ganha o jogo.
